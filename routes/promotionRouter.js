@@ -16,7 +16,7 @@ promotionRouter.route('/')
     .post((req, res, next) => {
         Promotion.create(req.body)
             .then(promotion => {
-                console.log('Partner Created ', partner);
+                console.log('Promotion Created ', promotion);
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.json(promotion);
@@ -43,7 +43,7 @@ promotionRouter.route('/:promotionId')
             .then(promotion => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(partner);
+                res.json(promotion);
             })
             .catch(err => next(err));
     })
