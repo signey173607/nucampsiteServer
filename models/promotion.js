@@ -22,6 +22,11 @@ const promotionSchema = new Schema({
         type: Boolean,
         default: false
     },
+    cost: {
+        type: Currency,
+        required: true,
+        min: 0
+    },
 }, {
     timestamps: true
 });
