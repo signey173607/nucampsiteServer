@@ -9,7 +9,7 @@ const favoriteRouter = express.Router();
 favoriteRouter.route('/')
     .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
     .get(cors.cors, (req, res, next) => {
-        Favorite.find()
+        Favorite.find(req.user._id)
             .then(favorites => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -18,7 +18,7 @@ favoriteRouter.route('/')
             .catch(err => next(err));
     })
     .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        Partner.create(req.body)
+        Favorite.create(req.body)
             .then(favorite => {
                 console.log('Favorite Created ', favorite);
                 res.statusCode = 200;
@@ -54,21 +54,21 @@ favoriteRouter.route('/:campsiteId')
     })
     .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res) => {
         res.statusCode = 403;
-        res.end(`POST operation not supported on /favorites/${req.params.partnerId}`);
+        res.end(`POST operation not supported on /favorites/${req.params.campsiteId}`);
     })
     .put(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        Partner.findByIdAndUpdate(req.params.partnerId, {
+        Favorite.findByIdAndUpdate(req.params.campsiteId, {
                 $set: req.body
             }, { new: true })
-            .then(partner => {
+            .then(favorite => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(partner);
+                res.json(favorite);
             })
             .catch(err => next(err));
     })
     .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        Partner.findByIdAndDelete(req.params.partnerId)
+        Favorite.findByIdAndDelete(req.params.campsiteId)
             .then(response => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
