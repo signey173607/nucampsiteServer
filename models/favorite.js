@@ -6,10 +6,10 @@ const favoriteSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Campsite'
     }],
-    user: [{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }
 });
 
 module.exports = mongoose.model('Favorite', favoriteSchema);
