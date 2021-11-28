@@ -11,6 +11,8 @@ const favoriteSchema = new Schema({
         ref: 'Campsite'
     }]
 
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Favorite', favoriteSchema);
