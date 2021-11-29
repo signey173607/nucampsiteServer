@@ -37,7 +37,7 @@ favoriteRouter
                         })
                         .catch(err => next(err));
                 } else {
-                    Favorite.create({ user: req.user._id })
+                    Favorite.create(req.body)
                         .then(favorite => {
                             req.body.forEach(fav => {
                                 if (!favorite.campsites.includes(fav._id)) {
