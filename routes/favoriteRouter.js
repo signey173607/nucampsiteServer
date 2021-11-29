@@ -14,6 +14,7 @@ favoriteRouter
             .populate('ser')
             .populate('ampsites')
             .then((favorites) => {
+                console.log('Favorite created', favorites);
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.json(favorites);
