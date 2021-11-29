@@ -21,11 +21,11 @@ favoriteRouter
             .catch((err) => next(err));
     })
     .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-        Favorite.findOne({ user: req.user._id })
+        Favorite.find({ user: req.user._id })
             .then(favorite => {
                 if (favorite) {
                     req.body.forEach(fav => {
-                        if (favorite.campsites.includes(fav._id)) {
+                        if (!favorite.campsites.includes(fav._id)) {
                             favorite.campsites.push(fav._id);
                         }
                     });
@@ -82,7 +82,7 @@ favoriteRouter.route('/:campsiteId')
         res.end(`GET operation not supported on /favorites/${req.params.campsiteId}`);
     })
     .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-        Favorite.findOne({ user: req.user._id })
+        Favorite.find({ user: req.user._id })
             .then(favorite => {
                 if (favorite) {
                     if (!favorite.campsites.includes(req.params.campsiteId)) {
