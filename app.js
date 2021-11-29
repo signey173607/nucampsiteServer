@@ -58,6 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/campsites', campsiteRouter);
 app.use('/partners', partnerRouter);
 app.use('/promotions', promotionRouter);
+app.use('/favorites', favoriteRouter);
 app.use('/routes/uploadRouter.js', uploadRouter);
 app.use('/routes/favoriteRouter.js', favoriteRouter);
 

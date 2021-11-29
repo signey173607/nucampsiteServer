@@ -10,16 +10,15 @@ favoriteRouter
     .route('/')
     .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
     .get(cors.cors, authenticate.verifyUser, (req, res, next) => {
-        Favorite.findOne({ user: req.user._id })
-            .populate('ser')
-            .populate('ampsites')
-            .then((favorites) => {
-                console.log('Favorite created', favorites);
+        Favorite.find({ user: req.user._id })
+            .populate('user')
+            .populate('campsites')
+            .then(favorite => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(favorites);
+                res.json(favorite);
             })
-            .catch((err) => next(err));
+            .catch(err => next(err));
     })
     .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
         Favorite.findOne({ user: req.user._id })
