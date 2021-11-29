@@ -83,7 +83,7 @@ favoriteRouter.route('/:campsiteId')
         res.end(`GET operation not supported on /favorites/${req.params.campsiteId}`);
     })
     .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-        Favorite.find({ user: req.user._id })
+        Favorite.findOne({ user: req.user._id })
             .then(favorite => {
                 if (favorite) {
                     if (!favorite.campsites.includes(req.params.campsiteId)) {
